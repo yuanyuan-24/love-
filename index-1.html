@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10152d">
+<title>我们的宇宙 · OUR LITTLE UNIVERSE</title>
+<style>
+:root{
+ --bg:#0d1228;--panel:#171d3b;--panel2:#20284a;--ink:#f6f0ff;--muted:#a8b1d8;
+ --pink:#ff9dcc;--lav:#c4b5fd;--mint:#a7f3d0;--gold:#ffe29a;--line:#394368;
+ --pixel: "Courier New", monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% -10%,#29305c 0%,var(--bg) 55%);color:var(--ink);font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.sky{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-1}
+.star{position:absolute;width:3px;height:3px;background:#fff;border-radius:1px;opacity:.75;animation:twinkle 2.6s infinite alternate}
+@keyframes twinkle{to{opacity:.18;transform:scale(.65)}}
+.wrap{max-width:920px;margin:auto;padding:18px 16px 105px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 24px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.04em}
+.brand-mark{width:42px;height:42px;display:grid;place-items:center;background:var(--pink);color:#211534;border:3px solid #fff0fa;box-shadow:4px 4px 0 #735aab;font-size:22px}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.14em;margin-top:2px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:12px;background:#141a35}
+.hero{position:relative;text-align:center;padding:22px 12px 24px;border:1px solid #424b75;border-radius:18px;background:linear-gradient(145deg,rgba(35,43,82,.9),rgba(17,22,47,.86));overflow:hidden;box-shadow:0 14px 45px #05081666}
+.eyebrow{color:var(--mint);font:700 11px var(--pixel);letter-spacing:.16em}
+h1{font-size:clamp(30px,8vw,52px);line-height:1.12;margin:12px 0 10px;letter-spacing:.03em}
+h1 span{color:var(--pink)}
+.subtitle{color:#c2c9e7;font-size:14px;line-height:1.8;max-width:450px;margin:0 auto}
+.planet-scene{height:185px;display:grid;place-items:center;position:relative;margin:8px auto 2px}
+.planet{width:128px;height:128px;position:relative;border-radius:50%;background:#f8a5d0;box-shadow:inset -14px -10px 0 #cb72b5,0 0 30px #f78cc866;image-rendering:pixelated}
+.planet:before{content:"";position:absolute;left:18px;top:25px;width:22px;height:15px;background:#ffe1ef;box-shadow:36px -8px 0 #ffe1ef,47px 38px 0 #9a72cc,-5px 48px 0 #9a72cc,27px 65px 0 #ffe1ef}
+.planet:after{content:"";position:absolute;width:164px;height:44px;border:7px solid #c4b5fd;border-radius:50%;left:-25px;top:42px;transform:rotate(-22deg);box-shadow:0 0 0 3px #5f579c}
+.moon{position:absolute;width:25px;height:25px;background:var(--gold);right:17%;top:22px;box-shadow:4px 4px 0 #a88659}
+.spark{position:absolute;color:var(--gold);font-size:23px}
+.s1{left:18%;top:30px}.s2{right:19%;bottom:24px;color:var(--pink)}.s3{left:25%;bottom:22px;font-size:15px}
+.counter{display:inline-flex;gap:8px;align-items:center;border:1px dashed #69739f;border-radius:12px;padding:10px 14px;margin:13px 0 18px;background:#0f1530aa}
+.counter strong{font:700 24px var(--pixel);color:var(--gold)}
+.counter span{font-size:12px;color:var(--muted)}
+.btn{border:0;border-radius:10px;padding:12px 15px;font-weight:800;background:var(--pink);color:#2a1630;box-shadow:0 4px 0 #b85d98;transition:transform .12s,filter .12s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #b85d98}
+.btn.secondary{background:#303a66;color:var(--ink);box-shadow:0 4px 0 #1b2347;border:1px solid #58628f}
+.btn.ghost{background:transparent;color:var(--lav);box-shadow:none;border:1px solid #59648f}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.section{margin-top:25px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:12px}
+.section-head h2{margin:0;font-size:20px}
+.section-head p{margin:5px 0 0;color:var(--muted);font-size:12px}
+.kicker{font:700 10px var(--pixel);color:var(--mint);letter-spacing:.14em}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:14px;background:linear-gradient(150deg,#1c2345,#141a34);padding:14px;min-width:0}
+.card h3{font-size:15px;margin:7px 0}
+.card p{font-size:13px;line-height:1.65;color:#c0c8e6;margin:7px 0}
+.card .emoji{font-size:25px}
+.tag{display:inline-block;color:var(--mint);background:#203c48;padding:4px 7px;font-size:10px;border-radius:5px}
+.mini-title{font:700 10px var(--pixel);color:var(--lav);letter-spacing:.1em}
+.preview-photo{aspect-ratio:4/3;border:1px dashed #6e78a4;border-radius:9px;background:repeating-linear-gradient(45deg,#262f57 0 8px,#20294d 8px 16px);display:grid;place-items:center;color:#c8cfee;font-size:12px;text-align:center;padding:12px;overflow:hidden}
+.preview-photo img{width:100%;height:100%;object-fit:cover}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:5;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:#0c1125ed;backdrop-filter:blur(14px);border-top:1px solid #30395d;display:flex;justify-content:center;gap:5px}
+.nav-btn{flex:1;max-width:180px;border:0;background:transparent;color:#9ea8d0;padding:8px 4px;border-radius:10px;font-size:11px}
+.nav-btn span{display:block;font-size:19px;margin-bottom:3px}
+.nav-btn.active{background:#292f56;color:#fff}
+.page{display:none}.page.active{display:block}
+.panel{padding:17px;border:1px solid var(--line);border-radius:16px;background:#171d3bed}
+.panel h2{margin:0 0 5px}.panel-intro{color:var(--muted);font-size:13px;line-height:1.7;margin:0 0 15px}
+.memory-card{display:grid;grid-template-columns:105px 1fr;gap:12px;align-items:start}
+.memory-card .preview-photo{aspect-ratio:3/4}
+.memory-list{display:grid;gap:12px}
+input,textarea,select{width:100%;background:#0e1430;color:var(--ink);border:1px solid #48537d;border-radius:9px;padding:11px}
+textarea{min-height:85px;resize:vertical}
+label{display:block;font-size:12px;color:#c9d0eb;margin:12px 0 6px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.empty{border:1px dashed #48537d;border-radius:12px;padding:22px;text-align:center;color:var(--muted);font-size:13px}
+.draw-stage{text-align:center;padding:25px 15px;border-radius:14px;background:radial-gradient(ellipse,#35305e,#171d3b 68%);border:1px solid #4c4d80}
+.draw-icon{font-size:55px;filter:drop-shadow(0 0 16px #fda4cf77)}
+.draw-title{font-size:22px;margin:12px 0 5px}
+.draw-desc{color:#c2c9e7;font-size:14px;line-height:1.7;max-width:400px;margin:0 auto 16px}
+.letter{background:#fff0d5;color:#453047;border-radius:5px;padding:18px;box-shadow:5px 5px 0 #76618b;position:relative;min-height:130px}
+.letter:before{content:"✦ ✧ ✦";display:block;color:#ba729d;font-size:12px;margin-bottom:12px}
+.letter h3{color:#7e497b}
+.letter p{color:#59455f;white-space:pre-wrap;line-height:1.8}
+.locked{opacity:.8;border-style:dashed}
+footer{text-align:center;color:#7782ad;font-size:11px;padding:28px 10px 5px;line-height:1.8}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#f8e6ff;color:#241932;padding:10px 14px;border-radius:10px;font-size:13px;box-shadow:0 6px 22px #0007;z-index:10;max-width:90vw;text-align:center}
+.hidden{display:none!important}
+.small{font-size:11px;color:var(--muted);line-height:1.7}
+@media(min-width:700px){.wrap{padding-top:26px}.hero{padding-top:30px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.memory-list{grid-template-columns:repeat(2,minmax(0,1fr))}.planet-scene{height:210px}}
+@media(max-width:380px){.brand{font-size:13px}.pill{font-size:10px}.memory-card{grid-template-columns:86px 1fr}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="sky" id="sky" aria-hidden="true"></div>
+<div class="wrap">
+<header class="topbar">
+ <div class="brand"><div class="brand-mark">♥</div><div>我们的宇宙<small>OUR LITTLE UNIVERSE</small></div></div>
+ <div class="pill">✦ 离线纪念版 · v1.0</div>
+</header>
+
+<main>
+<section class="page active" id="home">
+ <div class="hero">
+  <div class="eyebrow">✦ PLAYER 01 + PLAYER 02 ✦</div>
+  <h1>欢迎来到<br><span>我们的宇宙</span></h1>
+  <p class="subtitle" id="homeLine">这里没有全宇宙最厉害的魔法，<br>只有我想和你一起收藏的小小日常。</p>
+  <div class="planet-scene" aria-label="像素星球插画">
+   <span class="spark s1">✦</span><span class="spark s2">✧</span><span class="spark s3">✦</span><span class="moon"></span><div class="planet"></div>
+  </div>
+  <div class="counter"><strong id="daysCount">—</strong><span>天<br>一起探索宇宙</span></div>
+  <div class="actions"><button class="btn" onclick="go('memories')">打开回忆地图 ↗</button><button class="btn secondary" onclick="go('letters')">去未来邮局 ✉</button></div>
+ </div>
+ <div class="section">
+  <div class="section-head"><div><div class="kicker">YOUR LITTLE MISSIONS</div><h2>今日小任务</h2><p>不用完成所有任务，记得彼此就很好。</p></div><span class="tag">CO-OP MODE</span></div>
+  <div class="grid">
+   <div class="card"><div class="emoji">🌱</div><h3>种下一颗星</h3><p>写下一件今天让你开心的小事，让它成为宇宙的一部分。</p><button class="btn ghost" onclick="go('memories')">记录回忆</button></div>
+   <div class="card"><div class="emoji">🎲</div><h3>随机约会卡</h3><p>今天不想纠结去哪？让宇宙替你们抽一个轻松的小提议。</p><button class="btn ghost" onclick="go('dates')">抽一张卡</button></div>
+   <div class="card"><div class="emoji">💌</div><h3>给未来的信</h3><p>把现在想说的话留给未来某一天的你们。</p><button class="btn ghost" onclick="go('letters')">写封信</button></div>
+  </div>
+ </div>
+ <div class="section panel">
+  <div class="section-head"><div><div class="kicker">A NOTE FROM ME</div><h2>给你的第一封小纸条</h2></div><span>♡</span></div>
+  <p class="subtitle" style="max-width:none;text-align:left" id="homeNote">我不一定每次都能想出很厉害的惊喜，但我想把认真对待你的心意，慢慢放进这些小小的东西里。以后我们还可以一起把这里填满。</p>
+  <p class="small">这段文字可以在下方「设置与备份」中修改。</p>
+ </div>
+</section>
+
+<section class="page" id="memories">
+ <div class="section-head"><div><div class="kicker">MEMORY MUSEUM</div><h2>回忆博物馆</h2><p>把平凡的一天，存成以后也能打开的收藏。</p></div><span class="tag" id="memoryCount">0 条收藏</span></div>
+ <div class="panel">
+  <h2>放进一段回忆 ✦</h2><p class="panel-intro">先用示例内容感受一下。你可以添加文字，也可以从手机选择照片。照片只保存在当前浏览器的本地存储里，建议不要上传过多大图。</p>
+  <form id="memoryForm">
+   <label for="mTitle">回忆标题</label><input id="mTitle" required maxlength="60" placeholder="例如：那天一起看了晚霞">
+   <div class="form-row"><div><label for="mDate">日期</label><input id="mDate" type="date"></div><div><label for="mMood">回忆标签</label><select id="mMood"><option>心动瞬间</option><option>普通但开心</option><option>第一次</option><option>一起完成</option><option>想再去一次</option></select></div></div>
+   <label for="mText">想记住的话</label><textarea id="mText" maxlength="800" placeholder="写下当时发生了什么、你注意到了什么……"></textarea>
+   <label for="mPhoto">照片（可选）</label><input id="mPhoto" type="file" accept="image/*">
+   <div class="form-actions"><button class="btn" type="submit">收藏这段回忆 +</button><button class="btn secondary" type="button" onclick="resetMemoryForm()">清空表单</button></div>
+  </form>
+ </div>
+ <div class="section memory-list" id="memoryList"></div>
+</section>
+
+<section class="page" id="dates">
+ <div class="section-head"><div><div class="kicker">DATE QUEST GACHA</div><h2>约会抽卡机</h2><p>抽一张今天的共同任务，让选择变得简单一点。</p></div><span class="tag">RANDOM EVENT</span></div>
+ <div class="draw-stage">
+  <div class="draw-icon" id="drawIcon">🎮</div>
+  <div class="draw-title" id="drawTitle">准备好一起冒险了吗？</div>
+  <p class="draw-desc" id="drawDesc">点击按钮，从你们的专属约会卡牌中抽取一张。没有必须完成的任务，抽到不合适的可以再抽一次。</p>
+  <button class="btn" onclick="drawDate()">✦ 抽取约会卡</button>
+  <button class="btn secondary" onclick="saveCurrentDate()">收藏这张卡</button>
+ </div>
+ <div class="section-head" style="margin-top:22px"><div><div class="kicker">DATE DECK</div><h2>卡牌列表</h2><p>可以自己添加只属于你们的点子。</p></div></div>
+ <div class="panel">
+  <form id="dateForm"><label for="dTitle">约会卡名称</label><input id="dTitle" required maxlength="50" placeholder="例如：去买两杯热饮散步">
+   <label for="dDesc">具体玩法</label><textarea id="dDesc" required maxlength="300" placeholder="例如：各自选一种没喝过的口味，边走边聊。"></textarea>
+   <div class="form-actions"><button class="btn" type="submit">添加到卡组 +</button></div>
+  </form>
+  <hr><div id="dateDeck" class="grid"></div>
+ </div>
+</section>
+
+<section class="page" id="letters">
+ <div class="section-head"><div><div class="kicker">TIME POST OFFICE</div><h2>未来邮局</h2><p>把现在的心意，寄给未来的某一天。</p></div><span class="tag">MAIL TO FUTURE</span></div>
+ <div class="panel">
+  <h2>写一封时间信 ✉</h2><p class="panel-intro">选择一个日期，写下想留给未来的文字。此离线版会在你打开网站时检查日期，不会在关闭网页时主动推送通知。</p>
+  <form id="letterForm">
+   <label for="lTitle">信件标题</label><input id="lTitle" required maxlength="60" placeholder="例如：给下个月的我们">
+   <div class="form-row"><div><label for="lDate">希望揭晓的日期</label><input id="lDate" type="date" required></div><div><label for="lType">信件类型</label><select id="lType"><option>一封小情书</option><option>未来约定</option><option>想一起完成的事</option><option>给低落时的你</option></select></div></div>
+   <label for="lText">信的内容</label><textarea id="lText" required maxlength="1500" placeholder="写给未来的你们……"></textarea>
+   <div class="form-actions"><button class="btn" type="submit">封存这封信</button></div>
+  </form>
+ </div>
+ <div class="section-head" style="margin-top:22px"><div><div class="kicker">SEALED ENVELOPES</div><h2>信件收藏</h2></div></div>
+ <div id="letterList" class="memory-list"></div>
+</section>
+
+<section class="page" id="settings">
+ <div class="section-head"><div><div class="kicker">CUSTOMIZE YOUR PLANET</div><h2>设置与备份</h2><p>把示例改成你们自己的故事。</p></div><span class="tag">LOCAL SAVE</span></div>
+ <div class="panel">
+  <h2>你们的宇宙资料</h2>
+  <form id="settingsForm">
+   <label for="coupleName">你们的称呼（可选）</label><input id="coupleName" maxlength="50" placeholder="例如：小熊和小兔">
+   <label for="anniversary">恋爱开始日期</label><input id="anniversary" type="date">
+   <label for="slogan">首页欢迎语</label><textarea id="slogan" maxlength="250" placeholder="这里没有全宇宙最厉害的魔法……"></textarea>
+   <label for="note">首页小纸条</label><textarea id="note" maxlength="600" placeholder="写一段你想对她说的话"></textarea>
+   <div class="form-actions"><button class="btn" type="submit">保存设置</button></div>
+  </form>
+  <hr>
+  <h3>导出与恢复</h3><p class="small">导出会保存文字、设置、约会卡和信件。为避免 JSON 文件过大，照片不会包含在导出文件中，请另外备份原照片。</p>
+  <div class="form-actions"><button class="btn secondary" onclick="exportData()">导出数据备份</button><label class="btn secondary" for="importFile" style="margin:0;display:inline-flex;align-items:center">导入数据备份</label><input id="importFile" type="file" accept="application/json" class="hidden"></div>
+  <hr>
+  <h3>恢复示例内容</h3><p class="small">会清空本浏览器里本项目保存的数据，并恢复默认示例。操作前请先导出备份。</p>
+  <button class="btn ghost" onclick="resetAll()">恢复初始示例</button>
+ </div>
+ <div class="section panel"><h3>离线版说明</h3><p class="small">数据保存在当前浏览器的 localStorage 中。清理浏览器数据、换设备或用不同方式打开文件，可能导致数据不可见。建议定期导出备份。该版本没有账号系统、云同步、真正的后台定时推送或密码保护。</p></div>
+</section>
+<footer>MADE OF PIXELS, MEMORIES & A LITTLE BIT OF MAGIC<br>希望未来的我们，打开这里时仍然会笑。 ♡</footer>
+</main>
+</div>
+
+<nav class="bottom-nav" aria-label="主导航">
+ <button class="nav-btn active" data-page="home" onclick="go('home')"><span>🪐</span>宇宙首页</button>
+ <button class="nav-btn" data-page="memories" onclick="go('memories')"><span>🖼️</span>回忆馆</button>
+ <button class="nav-btn" data-page="dates" onclick="go('dates')"><span>🎲</span>约会卡</button>
+ <button class="nav-btn" data-page="letters" onclick="go('letters')"><span>💌</span>时间邮局</button>
+ <button class="nav-btn" data-page="settings" onclick="go('settings')"><span>⚙️</span>设置</button>
+</nav>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+const KEY='ourLittleUniverse_v1';
+const defaults={
+ settings:{coupleName:'',anniversary:'',slogan:'这里没有全宇宙最厉害的魔法，\\n只有我想和你一起收藏的小小日常。',note:'我不一定每次都能想出很厉害的惊喜，但我想把认真对待你的心意，慢慢放进这些小小的东西里。以后我们还可以一起把这里填满。'},
+ memories:[
+  {id:'demo1',title:'示例：一起看晚霞',date:'2026-09-12',mood:'心动瞬间',text:'那天的天空是粉橘色的。其实没有发生什么特别的大事，但我记得你看着晚霞时很开心。这里以后可以换成你们真实的回忆。',photo:''},
+  {id:'demo2',title:'示例：一段很普通的散步',date:'2026-09-20',mood:'普通但开心',text:'路上聊了好多没什么重点的话，但就是觉得和你待在一起很舒服。把小事记下来，也是因为我不想忘记它们。',photo:''}
+ ],
+ dates:[
+  {id:'d1',title:'交换一首歌',desc:'各自挑一首最近喜欢的歌，听完后告诉对方为什么选它。',icon:'🎧'},
+  {id:'d2',title:'夜晚散步任务',desc:'找一条舒服的路，买两杯喜欢的饮料，慢慢走，不赶时间。',icon:'🌙'},
+  {id:'d3',title:'双人零食盲选',desc:'预算内各自挑一种对方没吃过的零食，交换试吃并打分。',icon:'🍬'},
+  {id:'d4',title:'拍三张今天',desc:'分别拍下今天看到的可爱、奇怪和想分享给对方的东西。',icon:'📸'},
+  {id:'d5',title:'一起做顿简单的饭',desc:'选一道都没做过的简单料理，过程不求完美，开心就好。',icon:'🍳'},
+  {id:'d6',title:'重走一段回忆',desc:'去一个有共同记忆的地方，再拍一张新的照片。',icon:'🗺️'}
+ ],
+ letters:[
+  {id:'l-demo',title:'示例：给未来的我们',date:'2027-01-01',type:'未来约定',text:'嗨，未来的我们。希望你们打开这封信时，仍然愿意认真听对方说话，也还记得那些一起笑过的小事。遇到不顺利的时候，先站到彼此身边，再一起想办法。——这是一封示例信，可以删除或改写。',created:'2026-10-24'}
+ ]
+};
+let data=loadData(), currentDate=null, toastTimer=null;
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function loadData(){try{const raw=localStorage.getItem(KEY);if(raw){const x=JSON.parse(raw);return {...clone(defaults),...x,settings:{...clone(defaults.settings),...(x.settings||{})}}}}catch(e){}return clone(defaults)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){notify('保存失败：可能是照片太大，请换小一点的图片。');return false}}
+function notify(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add('hidden'),2600)}
+function go(page){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===page));document.querySelectorAll('.nav-btn').forEach(x=>x.classList.toggle('active',x.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'});if(page==='memories')renderMemories();if(page==='dates')renderDates();if(page==='letters')renderLetters();if(page==='settings')fillSettings()}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function makeStars(){const sky=document.getElementById('sky');for(let i=0;i<75;i++){const s=document.createElement('i');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=(Math.random()*3)+'s';s.style.opacity=(.2+Math.random()*.7);sky.appendChild(s)}}
+function updateHome(){const s=data.settings;document.getElementById('homeLine').innerHTML=esc(s.slogan||defaults.settings.slogan).replace(/\\n|\n/g,'<br>');document.getElementById('homeNote').textContent=s.note||defaults.settings.note;const d=s.anniversary?Math.max(0,Math.floor((new Date(new Date().toDateString())-new Date(s.anniversary+'T00:00:00'))/86400000)):null;document.getElementById('daysCount').textContent=d===null?'♡':d;document.title=(s.coupleName?s.coupleName+' · ':'')+'我们的宇宙'}
+function renderMemories(){const list=document.getElementById('memoryList');document.getElementById('memoryCount').textContent=data.memories.length+' 条收藏';if(!data.memories.length){list.innerHTML='<div class="empty">还没有回忆。添加第一段属于你们的故事吧 ✦</div>';return}list.innerHTML=data.memories.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(m=>`<article class="card memory-card"><div class="preview-photo">${m.photo?`<img src="${m.photo}" alt="回忆照片">`:'🖼️<br>在这里放一张<br>你们的照片'}</div><div><span class="tag">${esc(m.mood||'回忆')}</span><h3>${esc(m.title)}</h3><div class="mini-title">${esc(m.date||'未填写日期')}</div><p>${esc(m.text||'这段回忆还没有写下故事。')}</p><button class="btn ghost" onclick="deleteMemory('${esc(m.id)}')">删除这条</button></div></article>`).join('')}
+function resetMemoryForm(){document.getElementById('memoryForm').reset()}
+document.getElementById('memoryForm').addEventListener('submit',async e=>{e.preventDefault();const file=document.getElementById('mPhoto').files[0];let photo='';if(file){if(file.size>900000){notify('这张照片超过 900KB，建议先压缩后再添加。');return}photo=await fileToData(file)}data.memories.push({id:'m'+Date.now(),title:document.getElementById('mTitle').value.trim(),date:document.getElementById('mDate').value,mood:document.getElementById('mMood').value,text:document.getElementById('mText').value.trim(),photo});if(save()){resetMemoryForm();renderMemories();notify('这段回忆已收藏 ✦')}});
+function fileToData(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)})}
+function deleteMemory(id){if(!confirm('确定删除这段回忆吗？'))return;data.memories=data.memories.filter(x=>x.id!==id);save();renderMemories();notify('已删除这条回忆')}
+function drawDate(){if(!data.dates.length){notify('卡组空空的，先添加一张约会卡吧');return}currentDate=data.dates[Math.floor(Math.random()*data.dates.length)];document.getElementById('drawIcon').textContent=currentDate.icon||'🎲';document.getElementById('drawTitle').textContent=currentDate.title;document.getElementById('drawDesc').textContent=currentDate.desc}
+function saveCurrentDate(){if(!currentDate){notify('先抽取一张约会卡吧');return}const key='savedDates';let arr=[];try{arr=JSON.parse(localStorage.getItem(KEY+'_savedDates')||'[]')}catch(e){}if(arr.some(x=>x.id===currentDate.id)){notify('这张卡已经收藏过啦');return}arr.push(currentDate);localStorage.setItem(KEY+'_savedDates',JSON.stringify(arr));notify('已收藏约会卡 ✦')}
+function renderDates(){const deck=document.getElementById('dateDeck');deck.innerHTML=data.dates.map(d=>`<div class="card"><div class="emoji">${esc(d.icon||'🎲')}</div><h3>${esc(d.title)}</h3><p>${esc(d.desc)}</p><button class="btn ghost" onclick="removeDate('${esc(d.id)}')">移除卡牌</button></div>`).join('')||'<div class="empty">卡组为空，添加一张新卡吧。</div>'}
+document.getElementById('dateForm').addEventListener('submit',e=>{e.preventDefault();data.dates.push({id:'d'+Date.now(),title:document.getElementById('dTitle').value.trim(),desc:document.getElementById('dDesc').value.trim(),icon:'💗'});if(save()){e.target.reset();renderDates();notify('新卡牌加入成功')}})
+function removeDate(id){if(!confirm('确定从卡组移除这张卡吗？'))return;data.dates=data.dates.filter(x=>x.id!==id);save();renderDates()}
+document.getElementById('letterForm').addEventListener('submit',e=>{e.preventDefault();const date=document.getElementById('lDate').value;if(!date){notify('请先选择希望揭晓的日期');return}data.letters.push({id:'l'+Date.now(),title:document.getElementById('lTitle').value.trim(),date,type:document.getElementById('lType').value,text:document.getElementById('lText').value.trim(),created:new Date().toISOString().slice(0,10)});if(save()){e.target.reset();renderLetters();notify('信件已封存，记得定期备份 ✉')}})
+function renderLetters(){const list=document.getElementById('letterList');const today=new Date().toISOString().slice(0,10);if(!data.letters.length){list.innerHTML='<div class="empty">邮局还没有信件，写一封寄给未来吧。</div>';return}list.innerHTML=data.letters.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(l=>{const open=l.date<=today;return `<article class="card ${open?'':'locked'}"><div class="emoji">${open?'💌':'🔒'}</div><span class="tag">${esc(l.type||'时间信件')}</span><h3>${esc(l.title)}</h3><p class="small">${open?'已到揭晓日期':'揭晓日期：'+esc(l.date)}</p>${open?`<div class="letter"><h3>${esc(l.title)}</h3><p>${esc(l.text)}</p><small>—— 来自过去的你</small></div>`:'<p>这封信还在等待它的日子。到了日期后，再打开这里看看吧。</p>'}<div class="form-actions"><button class="btn ghost" onclick="deleteLetter('${esc(l.id)}')">删除信件</button></div></article>`}).join('')}
+function deleteLetter(id){if(!confirm('确定删除这封信吗？'))return;data.letters=data.letters.filter(x=>x.id!==id);save();renderLetters()}
+function fillSettings(){const s=data.settings;document.getElementById('coupleName').value=s.coupleName||'';document.getElementById('anniversary').value=s.anniversary||'';document.getElementById('slogan').value=(s.slogan||'').replace(/\\n/g,'\n');document.getElementById('note').value=s.note||''}
+document.getElementById('settingsForm').addEventListener('submit',e=>{e.preventDefault();data.settings={coupleName:document.getElementById('coupleName').value.trim(),anniversary:document.getElementById('anniversary').value,slogan:document.getElementById('slogan').value,note:document.getElementById('note').value};if(save()){updateHome();notify('你们的宇宙已更新 ✦');go('home')}})
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='our-little-universe-backup.json';a.click();URL.revokeObjectURL(url);notify('已生成数据备份文件')}
+document.getElementById('importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!x.settings||!Array.isArray(x.memories)||!Array.isArray(x.dates)||!Array.isArray(x.letters))throw Error('bad');if(!confirm('导入将覆盖当前设置、回忆、约会卡和信件。建议先导出现有备份。继续吗？'))return;data=x;save();updateHome();renderMemories();renderDates();renderLetters();notify('备份已导入')}catch(err){notify('无法读取该备份，请选择本项目导出的 JSON 文件')}e.target.value=''})
+function resetAll(){if(!confirm('这会清除本浏览器中的项目数据并恢复示例。确定继续吗？'))return;data=clone(defaults);save();updateHome();renderMemories();renderDates();renderLetters();fillSettings();notify('已恢复初始示例内容')}
+makeStars();updateHome();renderMemories();renderDates();renderLetters();
+</script>
+</body>
+</html>
